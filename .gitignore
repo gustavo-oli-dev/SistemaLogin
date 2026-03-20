@@ -1,11 +1,5 @@
-#gitignore para o projeto inteiro
-
-#Backend
 backend/__pycache__/
 backend/*.py[cod]
-backend/*$py.class
-backend/*.so
-backend/.Python
 backend/env/
 backend/venv/
 backend/ENV/
@@ -13,7 +7,6 @@ backend/.venv
 backend/.env
 backend/*.db
 
-#Frontend
 frontend/node_modules/
 frontend/.env.local
 frontend/.env.development.local
@@ -25,13 +18,10 @@ frontend/yarn-error.log*
 frontend/build/
 frontend/dist/
 
-#IDE
 .idea/
 .vscode/
 *.swp
 *.swo
 *~
 .DS_Store
-
-#Sistema
 Thumbs.db
