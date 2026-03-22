@@ -1,39 +1,39 @@
 # Sistema de Login & Registro
 
-Um projeto completo com CRUD básico de login/registro de usuários.
+Aplicacao full stack com autenticacao, painel administrativo e CRUD de usuarios.
 
 ## Estrutura
 
-- **Backend**: Python + Flask (porta 5000)
-- **Frontend**: React (porta 3000)
+- `backend`: API Flask na porta `5000`
+- `frontend`: interface React na porta `3000`
 
 ## Funcionalidades
 
 ### Backend
-- ✅ Registro de novos usuários
-- ✅ Login com validação
-- ✅ CRUD completo de usuários (Create, Read, Update, Delete)
-- ✅ API RESTful
-- ✅ Criptografia de senhas
+- Registro de novos usuarios
+- Login com validacao
+- CRUD completo de usuarios
+- API REST
+- Senhas com hash
 
 ### Frontend
-- ✅ Interface de Login
-- ✅ Interface de Registro
-- ✅ Dashboard com dados do usuário
-- ✅ Gráficos de estatísticas (Chart.js)
-- ✅ Tabela de usuários cadastrados
-- ✅ Editar perfil
-- ✅ Deletar usuários
+- Tela de login
+- Tela de cadastro
+- Dashboard do usuario
+- Graficos com Chart.js
+- Tabela de usuarios cadastrados
+- Edicao de perfil
+- Exclusao de usuarios por administrador
 
-## Como executar
+## Como executar localmente
 
 ### Backend
 ```bash
 cd backend
 python -m venv venv
-# Windows:
+# Windows
 venv\Scripts\activate
-# Mac/Linux:
+# Mac/Linux
 source venv/bin/activate
 pip install -r requirements.txt
 python app.py
@@ -46,14 +46,28 @@ npm install
 npm start
 ```
 
-Acesse `http://localhost:3000` no navegador.
+O frontend usa `REACT_APP_API_URL` quando definida. Sem essa variavel, ele usa `http://localhost:5000/api`.
+
+## Publicar no GitHub e gerar link publico
+
+O projeto ja inclui `render.yaml`, entao o caminho mais simples e:
+
+1. Subir este diretorio para um repositorio no GitHub.
+2. Entrar em `https://render.com`.
+3. Clicar em `New +` > `Blueprint`.
+4. Conectar o repositorio do GitHub.
+5. Confirmar a criacao dos 2 servicos:
+   - `sistema-login-register-api`
+   - `sistema-login-register-web`
+
+Depois do deploy, o Render cria um link publico para o frontend e outro para a API.
 
 ## Endpoints da API
 
-- `POST /api/auth/register` - Registrar novo usuário
-- `POST /api/auth/login` - Fazer login
-- `GET /api/usuarios` - Listar todos os usuários
-- `GET /api/estatisticas` - Obter dados para gráficos
-- `PUT /api/usuarios/<id>` - Atualizar usuário
-- `DELETE /api/usuarios/<id>` - Deletar usuário
-- `GET /api/health` - Health check
+- `POST /api/auth/register`
+- `POST /api/auth/login`
+- `GET /api/usuarios`
+- `GET /api/estatisticas`
+- `PUT /api/usuarios/<id>`
+- `DELETE /api/usuarios/<id>`
+- `GET /api/health`

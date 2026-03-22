@@ -3,10 +3,9 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 import { Line, Bar } from 'react-chartjs-2';
 import axios from 'axios';
 import './Dashboard.css';
+import { API_URL } from '../config/api';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend);
-
-const API_URL = 'http://localhost:5000/api';
 
 function Dashboard({ usuario, onLogout }) {
   const [usuarios, setUsuarios] = useState([]);
