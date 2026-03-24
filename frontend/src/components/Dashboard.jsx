@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { Line, Bar } from 'react-chartjs-2';
 import axios from 'axios';
@@ -19,11 +19,7 @@ function Dashboard({ usuario, onLogout }) {
   const [cargoSelecionado, setCargoSelecionado] = useState('usuario');
   const [salvandoCargo, setSalvandoCargo] = useState(false);
 
-  useEffect(() => {
-    carregarDados();
-  }, []);
-
-  const carregarDados = async () => {
+  const carregarDados = useCallback(async () => {
     try {
       const headers = { 'X-User-Email': usuario.email };
       const [usuariosRes, estRes] = await Promise.all([
@@ -37,14 +33,18 @@ function Dashboard({ usuario, onLogout }) {
     } finally {
       setCarregando(false);
     }
-  };
+  }, [usuario.email]);
+
+  useEffect(() => {
+    carregarDados();
+  }, [carregarDados]);
 
   const handleAtualizarPerfil = async () => {
     try {
       await axios.put(`${API_URL}/usuarios/${usuario.id}`, {
         nome: novoNome      }, {
         headers: { 'X-User-Email': usuario.email }      });
-      const usuarioAtualizado = { ...usuario, nickname: novoNome };
+      const usuarioAtualizado = { ...usuario, nome: novoNome };
       localStorage.setItem('usuario', JSON.stringify(usuarioAtualizado));
       setEditando(false);
       alert('Perfil atualizado com sucesso!');

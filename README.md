@@ -2,6 +2,10 @@
 
 Aplicacao full stack com autenticacao, painel administrativo e CRUD de usuarios.
 
+## Acessar projeto
+
+[Abrir aplicacao](https://sistema-login-register-web.onrender.com)
+
 ## Estrutura
 
 - `backend`: API Flask na porta `5000`
@@ -48,9 +52,13 @@ npm start
 
 O frontend usa `REACT_APP_API_URL` quando definida. Sem essa variavel, ele usa `http://localhost:5000/api`.
 
-## Publicar no GitHub e gerar link publico
+## Link publico
 
-O projeto ja inclui `render.yaml`, entao o caminho mais simples e:
+Para abrir o projeto a partir do GitHub, use este link publico no README:
+
+`https://sistema-login-register-web.onrender.com`
+
+O projeto ja inclui `render.yaml`, entao o caminho mais simples para manter esse deploy e:
 
 1. Subir este diretorio para um repositorio no GitHub.
 2. Entrar em `https://render.com`.
