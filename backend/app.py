@@ -19,6 +19,15 @@ admin_user = {
 }
 
 users_db = [admin_user]
+MIN_PASSWORD_LENGTH = 4
+
+
+def password_has_whitespace(password):
+    return any(char.isspace() for char in password)
+
+
+def password_is_too_short(password):
+    return len(password) < MIN_PASSWORD_LENGTH
 
 
 def generate_user_id():
@@ -33,11 +42,21 @@ def is_main_admin(user):
     return user['id'] == admin_user['id']
 
 
+def is_admin_user(user):
+    return user.get('is_admin', False)
+
+
 @app.route('/api/auth/register', methods=['POST'])
 def register():
     data = request.get_json()
     if not data or not data.get('email') or not data.get('senha') or not data.get('nome'):
         return jsonify({'erro': 'Email, senha e nome sao obrigatorios'}), 400
+
+    if password_has_whitespace(data['senha']):
+        return jsonify({'erro': 'A senha nao pode conter espacos em branco'}), 400
+
+    if password_is_too_short(data['senha']):
+        return jsonify({'erro': f'A senha deve ter pelo menos {MIN_PASSWORD_LENGTH} caracteres'}), 400
 
     if data['email'] == 'admin@gmail.com':
         return jsonify({'erro': 'Este email e reservado para o administrador'}), 409
@@ -69,6 +88,12 @@ def login():
     data = request.get_json()
     if not data or not data.get('email') or not data.get('senha'):
         return jsonify({'erro': 'Email e senha sao obrigatorios'}), 400
+
+    if password_has_whitespace(data['senha']):
+        return jsonify({'erro': 'A senha nao pode conter espacos em branco'}), 400
+
+    if password_is_too_short(data['senha']):
+        return jsonify({'erro': f'A senha deve ter pelo menos {MIN_PASSWORD_LENGTH} caracteres'}), 400
 
     usuario = next((user for user in users_db if user['email'] == data['email']), None)
     if not usuario or not check_password_hash(usuario['senha'], data['senha']):
@@ -148,15 +173,32 @@ def update_usuario(user_id):
     if not current_user.get('is_admin', False) and current_user['id'] != user_id:
         return jsonify({'erro': 'Acesso negado'}), 403
 
-    if current_user.get('is_admin', False) and is_main_admin(usuario) and current_user['id'] != admin_user['id']:
-        return jsonify({'erro': 'O administrador principal nao pode ser editado por outro administrador'}), 403
+    if (
+        is_admin_user(current_user)
+        and current_user['id'] != user_id
+        and is_admin_user(usuario)
+        and not is_main_admin(current_user)
+    ):
+        return jsonify({'erro': 'Apenas o administrador principal pode editar outros administradores'}), 403
 
     data = request.get_json()
-    if not current_user.get('is_admin', False):
-        if 'nome' in data and data['nome'].strip():
+    if not is_admin_user(current_user):
+        if 'nome' in data:
+            if not data['nome'].strip():
+                return jsonify({'erro': 'Nome invalido'}), 400
             usuario['nome'] = data['nome']
-        else:
-            return jsonify({'erro': 'Apenas o nome pode ser alterado'}), 400
+        if 'email' in data:
+            if any(item['email'] == data['email'] and item['id'] != user_id for item in users_db):
+                return jsonify({'erro': 'Email ja esta em uso'}), 409
+            if data['email'] == 'admin@gmail.com' and usuario['id'] != admin_user['id']:
+                return jsonify({'erro': 'Este email e reservado para o administrador'}), 409
+            usuario['email'] = data['email']
+        if 'senha' in data:
+            if password_has_whitespace(data['senha']):
+                return jsonify({'erro': 'A senha nao pode conter espacos em branco'}), 400
+            if password_is_too_short(data['senha']):
+                return jsonify({'erro': f'A senha deve ter pelo menos {MIN_PASSWORD_LENGTH} caracteres'}), 400
+            usuario['senha'] = generate_password_hash(data['senha'])
     else:
         if 'nome' in data:
             usuario['nome'] = data['nome']
@@ -190,15 +232,15 @@ def delete_usuario(user_id):
     if not current_user:
         return jsonify({'erro': 'Usuario nao encontrado'}), 404
 
-    if not current_user.get('is_admin', False):
+    if not is_admin_user(current_user):
         return jsonify({'erro': 'Apenas administradores podem deletar usuarios'}), 403
 
     usuario = next((user for user in users_db if user['id'] == user_id), None)
     if not usuario:
         return jsonify({'erro': 'Usuario nao encontrado'}), 404
 
-    if usuario['id'] == admin_user['id']:
-        return jsonify({'erro': 'Nao e possivel deletar o administrador principal'}), 403
+    if is_admin_user(usuario) and not is_main_admin(current_user):
+        return jsonify({'erro': 'Apenas o administrador principal pode excluir outros administradores'}), 403
 
     users_db = [user for user in users_db if user['id'] != user_id]
     return jsonify({'mensagem': 'Usuario deletado com sucesso'}), 200

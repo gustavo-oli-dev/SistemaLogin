@@ -11,16 +11,25 @@ function Login({ onSuccess, onSwitchMode }) {
   const [erro, setErro] = useState('');
   const [carregando, setCarregando] = useState(false);
   const [mostrarSenha, setMostrarSenha] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
+    const sanitizedValue = name === 'senha' ? value.replace(/\s/g, '') : value;
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: sanitizedValue
     }));
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErro('');
+
+    if (/\s/.test(formData.senha)) {
+      setErro('A senha nao pode conter espacos em branco');
+      return;
+    }
+
     setCarregando(true);
     try {
       const response = await axios.post(`${API_URL}/auth/login`, formData);
@@ -34,6 +43,7 @@ function Login({ onSuccess, onSwitchMode }) {
       setCarregando(false);
     }
   };
+
   return (
     <div className="auth-container">
       <h2>Login</h2>
@@ -64,7 +74,7 @@ function Login({ onSuccess, onSwitchMode }) {
               onClick={() => setMostrarSenha(!mostrarSenha)}
               title={mostrarSenha ? 'Ocultar senha' : 'Mostrar senha'}
             >
-              👁️‍🗨️
+              <span className="eye-icon" aria-hidden="true" />
             </button>
           </div>
         </div>
@@ -74,11 +84,12 @@ function Login({ onSuccess, onSwitchMode }) {
         </button>
       </form>
       <p>
-        Não tem conta? <button type="button" onClick={onSwitchMode} className="link-btn">
+        Nao tem conta? <button type="button" onClick={onSwitchMode} className="link-btn">
           Registre-se
         </button>
       </p>
     </div>
   );
 }
+
 export default Login;

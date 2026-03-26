@@ -145,15 +145,15 @@ pip install -r requirements.txt
 
 ### Dados desaparecem após refresh
 - É normal! Dados estão em memória (backend)
-- Para persistir, use banco de dados (ver RESUMO_PROJETO.md)
+- Para persistir, use banco de dados (ver `docs/RESUMO_PROJETO.md`)
 
 ## 📚 Arquivos Importantes
 
 | Arquivo | Descrição |
 |---------|-----------|
-| `COMMITS_SEMANTICOS.md` | Como fazer commits com padrão semântico |
-| `RESUMO_PROJETO.md` | Overview completo do projeto |
-| `GUIA.md` | Detalhes técnicos |
+| `docs/COMMITS_SEMANTICOS.md` | Como fazer commits com padrão semântico |
+| `docs/RESUMO_PROJETO.md` | Overview completo do projeto |
+| `docs/GUIA.md` | Detalhes técnicos |
 | `README.md` | Documentação geral |
 
 ## 🔗 Links Úteis
@@ -180,7 +180,7 @@ pip install -r requirements.txt
 
 Quando estiver pronto para versionamento:
 1. Instale Git
-2. Abra `COMMITS_SEMANTICOS.md`
+2. Abra `docs/COMMITS_SEMANTICOS.md`
 3. Siga os comandos
 
 ---

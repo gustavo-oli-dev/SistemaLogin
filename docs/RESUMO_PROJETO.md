@@ -62,8 +62,8 @@ sistema-login-register/
 │   └── .gitignore
 │
 ├── README.md                  # Instruções de uso
-├── GUIA.md                    # Guia técnico
-├── COMMITS_SEMANTICOS.md      # Documentação de commits
+├── docs/GUIA.md               # Guia técnico
+├── docs/COMMITS_SEMANTICOS.md # Documentação de commits
 └── .gitignore                # Ignora arquivos do repositório
 ```
 
@@ -116,7 +116,7 @@ sistema-login-register/
 
 ## 💾 Como Salvar o Histórico com Git
 
-Após instalar Git, execute os comandos no arquivo **COMMITS_SEMANTICOS.md**
+Após instalar Git, execute os comandos no arquivo **docs/COMMITS_SEMANTICOS.md**
 
 ## 🎓 Conceitos Demonstrados
 
@@ -165,4 +165,4 @@ Versionamento:
 
 **Status do Projeto**: ✅ **PRONTO PARA USO**
 
-Quando estiver pronto, execute os comandos em `COMMITS_SEMANTICOS.md` para registrar o histórico com Git! 🎉
+Quando estiver pronto, execute os comandos em `docs/COMMITS_SEMANTICOS.md` para registrar o histórico com Git! 🎉

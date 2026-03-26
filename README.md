@@ -10,6 +10,8 @@ Aplicacao full stack com autenticacao, painel administrativo e CRUD de usuarios.
 
 - `backend`: API Flask na porta `5000`
 - `frontend`: interface React na porta `3000`
+- `docs`: documentacao do projeto
+- `scripts/verification`: automacoes e verificacoes
 
 ## Funcionalidades
 
@@ -31,7 +33,19 @@ Aplicacao full stack com autenticacao, painel administrativo e CRUD de usuarios.
 
 ## Como executar localmente
 
-### Backend
+### ⚡ Opção Rápida (Recomendado)
+Clique 2x no arquivo `start.bat` (Windows) para iniciar frontend e backend automaticamente!
+
+Ou execute no terminal:
+```bash
+./start.bat
+```
+
+A aplicação abrirá automaticamente em `http://localhost:3000`
+
+---
+
+### Manual - Backend
 ```bash
 cd backend
 python -m venv venv
@@ -43,7 +57,7 @@ pip install -r requirements.txt
 python app.py
 ```
 
-### Frontend
+### Manual - Frontend
 ```bash
 cd frontend
 npm install
@@ -51,6 +65,22 @@ npm start
 ```
 
 O frontend usa `REACT_APP_API_URL` quando definida. Sem essa variavel, ele usa `http://localhost:5000/api`.
+
+## Documentacao
+
+- `docs/INICIO_RAPIDO.md`: primeiros passos
+- `docs/GUIA.md`: guia tecnico
+- `docs/API_REFERENCIA.md`: referencia da API
+- `docs/COMMITS_SEMANTICOS.md`: commits semanticos
+- `docs/RESUMO_PROJETO.md`: resumo do projeto
+- `docs/ENTREGA_COMPLETA.md`: checklist da entrega
+
+## Scripts de verificacao
+
+- `scripts/verification/verificar-erros.bat`
+- `scripts/verification/verificar-geral.bat`
+- `scripts/verification/verificar-permissoes-admin.bat`
+- `scripts/verification/verificar-publico.bat`
 
 ## Link publico
 

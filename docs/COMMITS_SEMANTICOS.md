@@ -94,7 +94,7 @@ git commit -m "feat(dashboard): adicionar gráficos com Chart.js
 
 ### 5. Documentação
 ```bash
-git add GUIA.md
+git add docs/GUIA.md
 git add README.md
 git commit -m "docs: adicionar guia completo do projeto
 
@@ -220,7 +220,7 @@ git commit -m "feat(dashboard): adicionar gráficos e gerenciamento
 - Funcionalidade de editar e deletar"
 
 # Commit 5: Documentação
-git add GUIA.md README.md
+git add docs/GUIA.md README.md
 git commit -m "docs: adicionar documentação completa
 
 - Guia de commits semânticos

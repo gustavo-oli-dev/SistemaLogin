@@ -9,11 +9,10 @@ function App() {
   const [mensagem, setMensagem] = useState('');
 
   useEffect(() => {
-    const usuarioSalvo = localStorage.getItem('usuario');
-    if (usuarioSalvo) {
-      setUsuario(JSON.parse(usuarioSalvo));
-      setModo('dashboard');
-    }
+    localStorage.removeItem('usuario');
+    localStorage.removeItem('token');
+    setUsuario(null);
+    setModo('login');
   }, []);
 
   const handleLoginSucesso = (usuarioData) => {
@@ -22,9 +21,10 @@ function App() {
     setMensagem('');
   };
 
-  const handleRegistroSucesso = (msg) => {
-    setMensagem(msg);
-    setModo('login');
+  const handleRegistroSucesso = (usuarioData) => {
+    setUsuario(usuarioData);
+    setModo('dashboard');
+    setMensagem('');
   };
 
   const handleLogout = () => {
@@ -35,9 +35,19 @@ function App() {
     setMensagem('');
   };
 
+  const handleUsuarioAtualizado = (usuarioAtualizado) => {
+    setUsuario(usuarioAtualizado);
+  };
+
   function renderConteudo() {
     if (modo === 'dashboard' && usuario) {
-      return <Dashboard usuario={usuario} onLogout={handleLogout} />;
+      return (
+        <Dashboard
+          usuario={usuario}
+          onLogout={handleLogout}
+          onUsuarioAtualizado={handleUsuarioAtualizado}
+        />
+      );
     }
 
     if (modo === 'register') {
@@ -63,7 +73,7 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>Sistema de Registro & Login 🔐</h1>
+        <h1>Sistema de Registro & Login</h1>
       </header>
       <main className="app-main">
         {renderConteudo()}
