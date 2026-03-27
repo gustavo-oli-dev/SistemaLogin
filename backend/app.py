@@ -9,6 +9,10 @@ from werkzeug.security import check_password_hash, generate_password_hash
 app = Flask(__name__)
 CORS(app)
 
+# Configuração para Railway
+app.config['DEBUG'] = os.environ.get('FLASK_DEBUG', 'False').lower() == 'true'
+port = int(os.environ.get('PORT', 5000))
+
 admin_user = {
     'id': 0,
     'nome': 'Administrador',
