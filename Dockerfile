@@ -15,7 +15,7 @@ RUN pip install --no-cache-dir -r backend/requirements.txt
 
 # Instalar dependencias e buildar o frontend
 COPY frontend/package*.json ./frontend/
-RUN cd frontend && npm ci
+RUN cd frontend && npm install
 
 COPY frontend/ ./frontend/
 RUN cd frontend && npm run build
