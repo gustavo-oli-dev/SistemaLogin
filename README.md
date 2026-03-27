@@ -2,16 +2,20 @@
 
 Aplicacao full stack com autenticacao, painel administrativo e CRUD de usuarios.
 
+## Deploy
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/gustavo-oli-dev/SistemaLogin)
+
+> Clique no botao acima, faca login no Render e o projeto sobe automaticamente.
+
 ## Acessar projeto
 
 [Abrir aplicacao](https://sistema-login-register-web.onrender.com)
 
 ## Estrutura
 
-- `backend`: API Flask na porta `5000`
-- `frontend`: interface React na porta `3000`
-- `docs`: documentacao do projeto
-- `scripts/verification`: automacoes e verificacoes
+- `backend/` — API Flask (porta `5000`)
+- `frontend/` — interface React (porta `3000`)
 
 ## Funcionalidades
 
@@ -33,79 +37,33 @@ Aplicacao full stack com autenticacao, painel administrativo e CRUD de usuarios.
 
 ## Como executar localmente
 
-### ⚡ Opção Rápida (Recomendado)
-Clique 2x no arquivo `start.bat` (Windows) para iniciar frontend e backend automaticamente!
+### Opcao rapida (Windows)
+Clique 2x no arquivo `start.bat` — abre o backend, o frontend e o navegador automaticamente.
 
-Ou execute no terminal:
+### Manual
+
 ```bash
-./start.bat
-```
-
-A aplicação abrirá automaticamente em `http://localhost:3000`
-
----
-
-### Manual - Backend
-```bash
+# Terminal 1 — Backend
 cd backend
-python -m venv venv
-# Windows
 venv\Scripts\activate
-# Mac/Linux
-source venv/bin/activate
-pip install -r requirements.txt
 python app.py
-```
 
-### Manual - Frontend
-```bash
+# Terminal 2 — Frontend
 cd frontend
 npm install
 npm start
 ```
 
-O frontend usa `REACT_APP_API_URL` quando definida. Sem essa variavel, ele usa `http://localhost:5000/api`.
-
-## Documentacao
-
-- `docs/INICIO_RAPIDO.md`: primeiros passos
-- `docs/GUIA.md`: guia tecnico
-- `docs/API_REFERENCIA.md`: referencia da API
-- `docs/COMMITS_SEMANTICOS.md`: commits semanticos
-- `docs/RESUMO_PROJETO.md`: resumo do projeto
-- `docs/ENTREGA_COMPLETA.md`: checklist da entrega
-
-## Scripts de verificacao
-
-- `scripts/verification/verificar-erros.bat`
-- `scripts/verification/verificar-geral.bat`
-- `scripts/verification/verificar-permissoes-admin.bat`
-- `scripts/verification/verificar-publico.bat`
-
-## Link publico
-
-Para abrir o projeto a partir do GitHub, use este link publico no README:
-
-`https://sistema-login-register-web.onrender.com`
-
-O projeto ja inclui `render.yaml`, entao o caminho mais simples para manter esse deploy e:
-
-1. Subir este diretorio para um repositorio no GitHub.
-2. Entrar em `https://render.com`.
-3. Clicar em `New +` > `Blueprint`.
-4. Conectar o repositorio do GitHub.
-5. Confirmar a criacao dos 2 servicos:
-   - `sistema-login-register-api`
-   - `sistema-login-register-web`
-
-Depois do deploy, o Render cria um link publico para o frontend e outro para a API.
+Acesse em `http://localhost:3000`
 
 ## Endpoints da API
 
-- `POST /api/auth/register`
-- `POST /api/auth/login`
-- `GET /api/usuarios`
-- `GET /api/estatisticas`
-- `PUT /api/usuarios/<id>`
-- `DELETE /api/usuarios/<id>`
-- `GET /api/health`
+| Metodo | Rota | Descricao |
+|--------|------|-----------|
+| POST | `/api/auth/register` | Registrar usuario |
+| POST | `/api/auth/login` | Login |
+| GET | `/api/usuarios` | Listar usuarios |
+| GET | `/api/estatisticas` | Estatisticas |
+| PUT | `/api/usuarios/<id>` | Atualizar usuario |
+| DELETE | `/api/usuarios/<id>` | Deletar usuario |
+| GET | `/api/health` | Status da API |

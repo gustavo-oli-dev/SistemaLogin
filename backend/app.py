@@ -247,10 +247,13 @@ def delete_usuario(user_id):
     if not usuario:
         return jsonify({'erro': 'Usuario nao encontrado'}), 404
 
+    if is_main_admin(usuario):
+        return jsonify({'erro': 'Nao e possivel deletar o administrador principal'}), 403
+
     if is_admin_user(usuario) and not is_main_admin(current_user):
         return jsonify({'erro': 'Apenas o administrador principal pode excluir outros administradores'}), 403
 
-    users_db = [user for user in users_db if user['id'] != user_id]
+    users_db[:] = [user for user in users_db if user['id'] != user_id]
     return jsonify({'mensagem': 'Usuario deletado com sucesso'}), 200
 
 
