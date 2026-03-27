@@ -1,15 +1,9 @@
 services:
   - type: web
     name: sistema-login
-    runtime: python
-    rootDir: .
-    buildCommand: |
-      cd frontend && npm install && npm run build && cd ../backend && pip install -r requirements.txt
-    startCommand: python backend/app.py
+    runtime: docker
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.11.9
       - key: FLASK_DEBUG
         value: "false"
       - key: PORT
-        value: "5000"
+        value: "10000"

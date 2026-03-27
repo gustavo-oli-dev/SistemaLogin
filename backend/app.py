@@ -7,8 +7,11 @@ from flask_cors import CORS
 from werkzeug.security import check_password_hash, generate_password_hash
 
 # Configurar Flask com pasta de arquivos estáticos do React
-app = Flask(__name__, 
-    static_folder=os.path.join(os.path.dirname(__file__), '..', 'frontend', 'build'),
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+FRONTEND_BUILD = os.path.join(BASE_DIR, '..', 'frontend', 'build')
+
+app = Flask(__name__,
+    static_folder=FRONTEND_BUILD,
     static_url_path='/'
 )
 CORS(app)
