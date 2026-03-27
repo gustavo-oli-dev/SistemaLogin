@@ -2,14 +2,18 @@ import os
 from datetime import datetime
 import random
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 from werkzeug.security import check_password_hash, generate_password_hash
 
-app = Flask(__name__)
+# Configurar Flask com pasta de arquivos estáticos do React
+app = Flask(__name__, 
+    static_folder=os.path.join(os.path.dirname(__file__), '..', 'frontend', 'build'),
+    static_url_path='/'
+)
 CORS(app)
 
-# Configuração para Railway
+# Configuração para Render
 app.config['DEBUG'] = os.environ.get('FLASK_DEBUG', 'False').lower() == 'true'
 port = int(os.environ.get('PORT', 5000))
 
@@ -253,6 +257,16 @@ def delete_usuario(user_id):
 @app.route('/api/health', methods=['GET'])
 def health():
     return jsonify({'status': 'ok'}), 200
+
+
+# Servir React para todas as rotas que não são API
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def serve_react(path):
+    if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
+        return send_from_directory(app.static_folder, path)
+    else:
+        return send_from_directory(app.static_folder, 'index.html')
 
 
 if __name__ == '__main__':
