@@ -10,7 +10,7 @@ Aplicacao full stack com autenticacao, painel administrativo e CRUD de usuarios.
 
 ## Acessar projeto
 
-[Abrir aplicacao](https://sistema-login-register-web.onrender.com)
+[Abrir aplicacao](https://sistemalogin-hot0.onrender.com)
 
 ## Estrutura
 
