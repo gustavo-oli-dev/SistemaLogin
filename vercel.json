@@ -1,0 +1,10 @@
+{
+  "buildCommand": "npm install && npm run build",
+  "outputDirectory": "build",
+  "framework": "react",
+  "env": {
+    "REACT_APP_API_URL": {
+      "value": "@sistema-login-api-url"
+    }
+  }
+}

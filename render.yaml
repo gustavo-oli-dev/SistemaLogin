@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: sistema-login-register-api
+    name: sistema-login-api
     runtime: python
     rootDir: backend
     buildCommand: pip install -r requirements.txt
@@ -12,11 +12,12 @@ services:
         value: "false"
 
   - type: web
-    name: sistema-login-register-web
+    name: sistema-login-web
     runtime: static
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: build
     envVars:
       - key: REACT_APP_API_URL
-        value: https://sistema-login-register-api.onrender.com/api
+        scope: build
+        value: https://sistema-login-api.onrender.com/api
