@@ -270,5 +270,5 @@ def health():
     return jsonify({'status': 'ok'}), 200
 
 
-# Para Vercel Serverless
-app = app
+# Para Vercel Serverless - exportar a aplicação Flask
+# Nenhuma linha extra necessária
